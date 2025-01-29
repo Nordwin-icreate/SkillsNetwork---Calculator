@@ -1,0 +1,116 @@
+from math import sqrt
+class Calculator:
+    """
+    A simple calculator class to perform basic arithmetic operations.
+    """
+    @staticmethod
+    def add(a, b):
+        """Returns the sum of two numbers."""
+        return a + b
+
+    @staticmethod
+    def subtract(a, b):
+        """Returns the difference between two numbers."""
+        return a - b
+
+    @staticmethod
+    def multiply(a, b):
+        """Returns the product of two numbers."""
+        return a * b
+
+    @staticmethod
+    def divide(a, b):
+        """
+        Returns the division of two numbers.
+        Raises:
+            ValueError: If the denominator is zero.
+        """
+        if b == 0:
+            raise ValueError("Division by zero is not allowed.")
+        return a / b
+
+    @staticmethod
+    def square_root(a):
+        """
+        Returns the square root of a number.
+        Raises:
+            ValueError: If the number is negative.
+        """
+        if a < 0:
+            raise ValueError("Square root of negative numbers is not defined.")
+        return sqrt(a)
+
+
+def get_user_choice():
+    """
+    Prompts the user to select an operation.
+    Returns:
+        str: The user's operation choice.
+    """
+    print("Select operation:")
+    print("1. Add")
+    print("2. Subtract")
+    print("3. Multiply")
+    print("4. Divide")
+    print("5. Square Root")
+    return input("Enter choice (1/2/3/4/5): ")
+
+
+def perform_operation(choice):
+    """
+    Executes the selected operation based on user input.
+
+    Args:
+        choice (str): The operation choice entered by the user.
+
+    Raises:
+        ValueError: If input is not valid.
+    """
+    try:
+        if choice == '5':  # Square root operation
+            number = float(input("Enter number: "))
+            result = Calculator.square_root(number)
+            print(f"The result is: {result}")
+        else:  # All other operations
+            first_number = float(input("Enter the first number: "))
+            second_number = float(input("Enter the second number: "))
+
+            if choice == '1':
+                result = Calculator.add(first_number, second_number)
+            elif choice == '2':
+                result = Calculator.subtract(first_number, second_number)
+            elif choice == '3':
+                result = Calculator.multiply(first_number, second_number)
+            elif choice == '4':
+                result = Calculator.divide(first_number, second_number)
+            else:
+                print("Invalid operation selected.")
+                return
+
+            print(f"The result is: {result}")
+    except ValueError as e:
+        print(f"Error: {e}")
+
+
+def main():
+    """
+    Main function to handle the calculator program's user interface.
+    """
+    print("Welcome to the Enhanced Calculator!")
+    while True:
+        user_choice = get_user_choice()
+
+        if user_choice in ['1', '2', '3', '4', '5']:
+            perform_operation(user_choice)
+        else:
+            print("Invalid choice. Please select a valid operation.")
+
+        # Ask the user if they want to perform another calculation
+        next_calculation = input("Do you want to perform another calculation? (yes/no): ").strip().lower()
+        if next_calculation != 'yes':
+            print("Goodbye!")
+            break
+
+
+if __name__ == "__main__":
+    main()
